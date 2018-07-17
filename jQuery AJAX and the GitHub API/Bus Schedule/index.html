@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bus Schedule</title>
+  <style>
+    #schedule { text-align: center; width: 400px; }
+    input { width: 120px; }
+    #info { background-color:aquamarine; border:1px solid black; margin:0.25em; }
+    .info { font-size: 1.5em; padding: 0.25em; }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+<div id="schedule">
+  <div id="info">
+      <span class="info">Not Connected</span> <!-- The data output from rest service-->
+  </div>
+  <div id="controls">
+    <input id="depart" value="Depart" type="button" onclick="result.depart()">
+    <input id="arrive" value="Arrive" type="button" onclick="result.arrive()" disabled="true">
+  </div>
+</div>
+<script>
+  function solve() {
+    // TODO ...
+    function depart(){
+        $('.info').empty();
+        let url = "https://judgetests.firebaseio.com/schedule/depot.json";
+        $.ajax({ 
+            method: 'get',
+            url,
+            success: displayBusses,
+            error: displayError
+        });
+        function displayBusses(respos) {
+            $('.info').append('Next stop ' + respos.next);
+            $('#depart').attr("disabled", true);
+            $('#arrive').attr("disabled", false);
+        }
+        function displayError(err) {
+            console.log(err);
+        }  
+    }
+
+    function arrive(){
+        let infoLabel = $('.info').text().split(" ");;
+        let busStop = infoLabel[infoLabel.length-1];
+        let url = "https://judgetests.firebaseio.com/schedule/" + busStop + ".json";
+        
+        $('.info').empty();
+        $.ajax({ 
+            method: 'get',
+            url,
+            success: displayBusses,
+            error: displayError
+        });
+        function displayBusses(respos) {
+            $('.info').append('Next stop ' + respos.next);
+            if(respos.next === 'depot'){
+                $('#depart').attr("disabled", false);
+                $('#arrive').attr("disabled", true);
+            } else {
+                $('#depart').attr("disabled", true);
+                $('#arrive').attr("disabled", false);
+            }
+        }
+        function displayError(err) {
+            console.log(err);
+        }  
+
+    }
+
+    
+    return {
+      depart,
+      arrive
+    };
+  }
+  let result = solve();
+</script>
+</body>
+</html>
