@@ -1,0 +1,17 @@
+[{
+    "angler": "Paulo Amorim",
+    "weight": "100",
+    "species": "Atlantic Blue Marlin",
+    "location": "Vitória, Brazil",
+    "bait": "trolled pink",
+    "captureTime": "80"
+},
+{
+    "angler": "Valentin Aleksandrov",
+    "weight": "20",
+    "species": "Some fish",
+    "location": "Sofia",
+    "bait": "popcorns",
+    "captureTime": "300"
+}
+]

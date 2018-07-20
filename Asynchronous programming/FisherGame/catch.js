@@ -12,6 +12,7 @@ function del(){
 }
 function load(){
     console.log('load function');
+    $('#catches').empty();
 }
 function add(){
     console.log('add function');
