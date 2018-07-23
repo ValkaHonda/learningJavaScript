@@ -3,8 +3,8 @@ const USER_NAME = 'pingvin_8@mail.bg';
 PASSWORD = '883368107754';
 
 function attachEvents(){
-    $('.update').click(update);
-    $('.delete').click(del);
+    $(document).on('click','.update',update);
+    $(document).on('click','.delete',del);
     $('.load').click(load);
     $('.add').click(add);
 }
@@ -12,6 +12,7 @@ function update(){
     console.log('update function');
 }
 function del(){
+    console.log('delete function');
     console.log('delete function');
 }
 function load(){
@@ -23,6 +24,7 @@ function load(){
             "Authorization": "Basic " + btoa(USER_NAME + ":" + PASSWORD)
         },
         success: function(respond){
+            
             createAnglerFrame();
             for(let i = 0; i < respond.length; i++){
                 let angler = respond[i];
