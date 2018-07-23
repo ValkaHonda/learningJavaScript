@@ -10,13 +10,13 @@ function attachEvents(){
 }
 function update(){
     console.log('update function');
+    
 }
 function del(){
     console.log('delete function');
-    console.log('delete function');
 }
 function load(){
-    $('#catches').empty();
+    $('#main').remove();
     $.ajax({
         method: 'get',
         url: URL,
@@ -24,7 +24,7 @@ function load(){
             "Authorization": "Basic " + btoa(USER_NAME + ":" + PASSWORD)
         },
         success: function(respond){
-            
+
             createAnglerFrame();
             for(let i = 0; i < respond.length; i++){
                 let angler = respond[i];
